@@ -7,5 +7,3 @@
  */
 //采用当前配置的页面所输出的数组和字符串 自动转换为json格式
 return [
-    'default_return_type'=>'json'
-    ];
