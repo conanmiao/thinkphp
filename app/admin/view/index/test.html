@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <script src="__STATIC__/assets/js/jquery.min.js"></script>
+    <script src="__STATIC__/assets/js/zTool.1.1.js"></script>
+</head>
+<body>
+<h1>this is test!</h1>
+<form action="debugPage"  method="POST" enctype="multipart/form-data">
+    <input type="file" id="imageFile" value="点击上传">
+    <img src="" alt="" width="500" height="500" id="image">
+    <button type="submit">提交</button>
+</form>
+<script>
+    $(function(){
+        $("body").fileimg({
+            'fileId':"#imageInput",
+            'imgId':"#image"
+        });
+    })
+</script>
+
+
+</body>
+</html>

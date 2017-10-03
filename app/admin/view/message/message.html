@@ -1,0 +1,76 @@
+{extend name="index/index"/}
+{block name="content"}
+
+<div class="tpl-content-wrapper">
+    <div class="tpl-portlet-components">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 用户留言
+            </div>
+
+
+
+        </div>
+        <div class="tpl-block">
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">用户姓名</th>
+                                <th class="table-title">电话</th>
+                                <th class="table-title">邮箱</th>
+                                <th class="table-title">留言内容</th>
+                                <th class="table-date am-hide-sm-only">留言时间</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $data as $arr}
+                            <tr>
+                                <td>{$arr.id}</td>
+                                <td class="am-hide-sm-only">{$arr.username}</td>
+                                <td><a href="msgDetail?id={$arr.id}">{$arr.tel}</a></td>
+                                <td class="am-hide-sm-only">{$arr.email}</td>
+                                <td class="am-hide-sm-only">{$arr.content|mb_substr=0,10,'utf-8'}</td>
+                                <td class="am-hide-sm-only">{$arr.createtime|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button" onclick="window.location.href='msgDetail?id={$arr.id}'" class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                <span class="am-icon-pencil-square-o"></span> 详情
+                                            </button>
+                                            <button type="button" onclick="del('msgDel?id={$arr.id}')" class="del am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                <span class="am-icon-trash-o"></span> 删除
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+
+
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+
+                            <div class="am-fr">
+                                {$data->render()}
+                            </div>
+                        </div>
+                        <hr>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="tpl-alert"></div>
+    </div>
+
+
+</div>
+{/block}

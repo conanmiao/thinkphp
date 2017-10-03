@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>网站管理系统</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="__STATIC__/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="__STATIC__/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="__STATIC__/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/assets/css/admin.css">
+    <link rel="stylesheet" href="__STATIC__/assets/css/app.css">
+    <script src="__STATIC__/assets/js/echarts.min.js"></script>
+    <script src="__STATIC__/assets/js/jquery.min.js"></script>
+    <!--<script src="__STATIC__/assets/js/zTool.1.1.js"></script>-->
+    <style>
+        .tpl-table-images-content-iiii{overflow: hidden;}
+    </style>
+    <script>
+        $(function(){
+            //处理 产品列表页的图片，高度按照宽度来进行一定比例进行适应
+            //alert($('.tpl-table-images-content-i').width());
+            var h=$('.tpl-table-images-content-iiii').width()/1.76;
+            $('.tpl-table-images-content-iiii').css("height",h);
+
+        })
+    </script>
+    <script>
+        //处理图片上传的时候 自动刷新选择的图片
+        $(function(){
+            $("#imageInput").change(function() {
+                var $file = $(this);
+                var fileObj = $file[0];
+                var windowURL = window.URL || window.webkitURL;
+                var dataURL;
+                var $img = $("#image");
+
+                if(fileObj && fileObj.files && fileObj.files[0]){
+                    dataURL = windowURL.createObjectURL(fileObj.files[0]);
+                    $img.attr('src',dataURL);
+                }else{
+                    dataURL = $file.val();
+                    var imgObj = document.getElementById("preview");
+// 两个坑:
+// 1、在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+// 2、src属性需要像下面的方式添加，上面的两种方式添加，无效；
+                    imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+
+                }
+            });
+        })
+    </script>
+    <script>
+        function del(url) {
+                var res=confirm('确认删除该条信息吗？')
+            if(res==true){
+                window.location.href=url;
+            }else{
+                return false;
+            }
+        }
+    </script>
+
+    <script>
+        //获取到URL中的get的值
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+    </script>
+</head>
+
+<body data-type="index">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="__STATIC__/assets/img/logo.png" alt="">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
+                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="tpl-header-list-user-nick">{$username}</span>
+                    <span class="tpl-header-list-user-ico">
+                            <img src="__STATIC__/assets/img/user03.png"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="{:url('admin/index/password')}"><span class="am-icon-key"></span> 密码修改</a></li>
+                    <li><a href="{:url('admin/index/outLogin')}"><span class="am-icon-power-off"></span> 退出登录</a></li>
+                </ul>
+            </li>
+            <li><a href="/admin/index/outLogin" class="tpl-header-list-link"><span
+                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
+        </ul>
+    </div>
+</header>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+
+
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            导航菜单
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/index/index')}" class="nav-link">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-newspaper-o am-icon-fw"></i>
+                        <span>新闻管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu">
+                        <li>
+                            <a href="{:url('/admin/news/newsList')}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>新闻列表</span>
+                                <i class="tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                            </a>
+
+                            <a href="{:url('/admin/news/newsCate')}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>新闻分类</span>
+                                <i class="tpl-left-nav-content tpl-badge-success"></i></a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-list am-icon-fw"></i>
+                        <span>产品管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu">
+                        <li>
+                            <a href="{:url('/admin/product/proList')}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>产品列表</span>
+                                <i class="tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                            </a>
+
+                            <a href="{:url('/admin/product/proCate')}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>产品分类</span>
+                                <i class="tpl-left-nav-content tpl-badge-success"></i></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/infopage/infoPage')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-file-text-o am-icon-fw"></i>
+                        <span>单页信息</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/user/userList')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-users am-icon-fw"></i>
+                        <span>用户管理</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/message/message')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-commenting-o am-icon-fw"></i>
+                        <span>留言管理</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/friendlink/index')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-link am-icon-fw"></i>
+                        <span>友情链接</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/index/configPage')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-gear am-icon-spin am-icon-fw"></i>
+                        <span>网站设置</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="{:url('/admin/index/password')}" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-key am-icon-fw"></i>
+                        <span>密码修改</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    {block name="content"}
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            Amaze UI 首页组件
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+            <li><a href="#">分类</a></li>
+            <li class="am-active">内容</li>
+        </ol>
+
+        <div class="row">
+            <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="am-icon-comments-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> 1349</div>
+                        <div class="desc"> 新消息</div>
+                    </div>
+                    <a class="more" href="#"> 查看更多
+                        <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="am-icon-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> 62%</div>
+                        <div class="desc"> 收视率</div>
+                    </div>
+                    <a class="more" href="#"> 查看更多
+                        <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="am-icon-apple"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> 653</div>
+                        <div class="desc"> 苹果设备</div>
+                    </div>
+                    <a class="more" href="#"> 查看更多
+                        <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="am-icon-android"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> 786</div>
+                        <div class="desc"> 安卓设备</div>
+                    </div>
+                    <a class="more" href="#"> 查看更多
+                        <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/block}
+</div>
+<script>
+    //通过GET中的值cid来决定select框的默认选中状态
+    var select = GetQueryString("cid");
+    $("#cid option[value='" + select + "']").attr("selected", true);
+</script>
+
+<script src="__STATIC__/assets/js/jquery.min.js"></script>
+<script>
+    //通过url地址来决定侧边导航栏的点击后默认选中状态
+    $(function () {
+
+        var page = window.location.href;
+        var paraString = page.substring(page.lastIndexOf('/')+1, page.length);
+
+        $('.tpl-left-nav-menu li a').each(function () {
+            var href = $(this).attr('href');
+
+            if (href == paraString) {
+
+                $(this).addClass('active').parent('li').siblings().find('a').removeClass('active');
+                $(this).parents('li').find('.tpl-left-nav-sub-menu').show();
+            }
+        });
+    })
+</script>
+<script src="__STATIC__/assets/js/amazeui.min.js"></script>
+<script src="__STATIC__/assets/js/iscroll.js"></script>
+<script src="__STATIC__/assets/js/app.js"></script>
+
+</body>
+
+</html>

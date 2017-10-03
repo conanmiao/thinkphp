@@ -1,0 +1,49 @@
+{extend name="index/index"/}
+{block name="content"}
+<div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 产品分类
+                    </div>
+
+                </div>
+                <div class="tpl-block ">
+
+                    <div class="am-g tpl-amazeui-form">
+
+
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <form enctype="multipart/form-data" class="am-form am-form-horizontal" method="POST" action="doProCateAdd?id={$Think.get.id}" >
+                                <div class="am-form-group">
+                                    <label for="title" class="am-u-sm-3 am-form-label">上级分类</label>
+                                    <div class="am-u-sm-9">
+                                        <span class="am-text-sm">{$parent}</span>
+                                    </div>
+                                    <div style="display:none">
+                                        <input type="text" name="pid" value="{$Think.get.pid}">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="title" class="am-u-sm-3 am-form-label">分类名称</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="title" name="catename" placeholder="请输入分类名称" value="{$data.catename}">
+                                        <small>标题不能为空</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary">保存修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+{/block}

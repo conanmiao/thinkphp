@@ -1,0 +1,116 @@
+{extend name="index/index"/}
+{block name="content"}
+<div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 新闻编辑
+                    </div>
+
+                </div>
+                <div class="tpl-block ">
+                    <div class="am-g tpl-amazeui-form">
+
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <form enctype="multipart/form-data" class="am-form am-form-horizontal" method="POST" action="doNewsAdd?id={$Think.get.id}" >
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">新闻分类</label>
+                                    <div class="am-u-sm-9">
+                                        <select name="cateId"   data-am-selected="{btnSize: 'sm'}">
+                                            {foreach $cate as $arr}
+                                            <option  value="{$arr.id}">{$arr.catename}</option>
+                                            {/foreach}
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="title" class="am-u-sm-3 am-form-label">新闻标题</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="title" name="title" required="required" placeholder="请输入新闻标题" value="{$data.title}">
+                                        <small>标题不能为空</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">新闻主图 </label>
+                                    <div class="am-u-sm-9">
+                                        <div class="am-form-group am-form-file">
+                                            <div class="tpl-form-file-img">
+                                                <img id="image" src="{$data.pic}" alt="">
+                                            </div>
+                                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                <i class="am-icon-cloud-upload"></i> 点击上传图片</button>
+                                            <input type="file" name="image" id="imageInput"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="desc" class="am-u-sm-3 am-form-label">新闻描述</label>
+                                    <div class="am-u-sm-9">
+                                        <textarea class="" rows="5" id="desc" name="desc" placeholder="请输入新闻描述内容">{$data.desc}</textarea>
+                                        <small>描述会显示在新闻列表中的摘要部分</small>
+                                    </div>
+                                </div>
+
+
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">文章详情</label>
+                                    <div class="am-u-sm-9">
+                                        <!-- 加载编辑器的容器 -->
+                                        <script id="container" name="content" type="text/plain" >{$data.content}</script>
+                                        <!-- 配置文件 -->
+                                        <script type="text/javascript" src="__ROOT__/ueditor/ueditor.config.js"></script>
+                                        <!-- 编辑器源码文件 -->
+                                        <script type="text/javascript" src="__ROOT__/ueditor/ueditor.all.min.js"></script>
+                                        <!-- 实例化编辑器 -->
+                                        <script type="text/javascript">
+                                            var ue = UE.getEditor('container', {
+                                                initialFrameWidth:650,
+                                                initialFrameHeight:220
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">作者</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" value="{$data.author}" name="author" placeholder="请输入原文作者">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">排序值</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="number" value="{$data.order}" name="order" pattern="[0-9]*" placeholder="排序值为数字">
+                                        <small>排序值越大，该新闻在列表中显示越靠前</small>
+
+                                    </div>
+                                </div>
+                                <!--<div><input name="image" type="file" ></div>-->
+
+
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary">保存修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+{/block}

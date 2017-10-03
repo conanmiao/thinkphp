@@ -1,0 +1,113 @@
+{extend name="index/index"/}
+{block name="content"}
+
+<div class="tpl-content-wrapper">
+
+    <div class="tpl-portlet-components">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span>
+                新闻分类
+            </div>
+
+
+        </div>
+        <div class="tpl-block">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button onclick="location.href='newsCateEdit?pid={$Think.get.pid}'" type="button"
+                                    class="am-btn am-btn-default am-btn-success">
+                                <span class="am-icon-plus" href="newsCateEdit"></span> 新增
+                            </button>
+                        </div>
+
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button onclick="location.href='newsCate?pid={$parentPid}'" type="button"
+                                    class="am-btn am-btn-default am-btn-warning">
+                                <span class="am-icon-mail-reply" href="newsCateEdit"></span> 返回父分类
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">父分类</th>
+                                <th class="table-title">分类名称</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $cate as $arr}
+                            <tr>
+                                <td>{$arr.id}</td>
+                                <td>{$parentName}</td>
+
+                                <td><a href="newsCateEdit?id={$arr.id}">{$arr.catename}</a></td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button"
+                                                    onclick="window.location.href='newsCateEdit?id={$arr.id}&pid={$arr.pid}'"
+                                                    class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                <span class="am-icon-pencil-square-o"></span> 编辑
+                                            </button>
+                                            <button type="button"
+                                                    onclick="window.location.href='newsCate?pid={$arr.id}'"
+                                                    class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                <span class="am-icon-level-down"></span> 查看子分类
+                                            </button>
+                                            <button type="button"
+                                                    onclick="del('newsCateDel?id={$arr.id}&pid={$Think.get.pid}')"
+                                                    class="del am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                <span class="am-icon-trash-o"></span> 删除
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+
+
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+
+                            <div class="am-fr">
+                                {$cate->render()}
+
+                                {/*
+                                <ul class="am-pagination tpl-pagination">
+
+                                    <li class="am-disabled"><a href="#">«</a></li>
+                                    <li class="am-active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                                */}
+                            </div>
+                        </div>
+                        <hr>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="tpl-alert"></div>
+    </div>
+
+
+</div>
+{/block}

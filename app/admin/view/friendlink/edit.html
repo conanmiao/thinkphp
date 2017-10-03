@@ -1,0 +1,69 @@
+{extend name="index/index"/}
+{block name="content"}
+<div class="tpl-content-wrapper">
+
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 友情链接
+                    </div>
+
+                </div>
+                <div class="tpl-block ">
+
+                    <div class="am-g tpl-amazeui-form">
+                        <form enctype="multipart/form-data" class="am-form am-form-horizontal" method="POST" action="Add?id={$Think.get.id}" >
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <div class="am-form am-form-horizontal" >
+
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">链接名称</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text"  name="name" placeholder="请输入链接名称" value="{$data.name}">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">链接地址</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text"  name="url" placeholder="请输入链接地址" value="{$data.url}">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label  class="am-u-sm-3 am-form-label">图片 </label>
+                                    <div class="am-u-sm-9">
+                                        <div class="am-form-group am-form-file">
+                                            <div class="tpl-form-file-img">
+                                                <img id="image" src="{$data.img}" alt="">
+                                            </div>
+                                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                <i class="am-icon-cloud-upload"></i> 点击上传图片</button>
+                                            <input type="file" name="image" id="imageInput"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary">保存修改</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+{/block}
